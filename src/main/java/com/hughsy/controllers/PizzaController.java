@@ -24,35 +24,34 @@ public class PizzaController {
 	private ToppingRepository toppingRepo;
 	@Autowired
 	private OrderRepository orderRepo;
-	
-	@RequestMapping(value="", method=RequestMethod.GET)
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String pizzaGet(@PathVariable Long orderId, ModelMap model) {
-		
+
 		model.put("pizzaSizes", PizzaSizeEnum.values());
 		model.put("pizzaCrusts", PizzaCrustEnum.values());
 		model.put("toppings", toppingRepo.findAll());
-		
+
 		Pizza pizza = new Pizza();
 		model.put("pizza", pizza);
-		
+
 		return "pizzas";
 	}
-	
-	@RequestMapping(value="", method=RequestMethod.POST)
-	public String pizzaPost (@ModelAttribute Pizza pizza, @PathVariable Long orderId, ModelMap model) {
-		
-		
+
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String pizzaPost(@ModelAttribute Pizza pizza, @PathVariable Long orderId, ModelMap model) {
+
 		Order order = orderRepo.findById(orderId).get();
-		
-		for(Topping topping : pizza.getToppings()) {
+
+		for (Topping topping : pizza.getToppings()) {
 			topping.getPizzas().add(pizza);
 		}
-		
+
 		pizza.setOrder(order);
 		order.getPizzas().add(pizza);
-		
+
 		orderRepo.save(order);
-		
-		return "redirect:/orders/"+orderId;
+
+		return "redirect:/orders/" + orderId;
 	}
 }

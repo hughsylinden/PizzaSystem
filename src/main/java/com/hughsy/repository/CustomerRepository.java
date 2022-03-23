@@ -7,5 +7,7 @@ import com.hughsy.domain.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
+	public Customer findByEmailAddress(String username);
  
 }

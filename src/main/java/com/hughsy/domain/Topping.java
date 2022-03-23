@@ -14,50 +14,45 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Topping
-{
-  private Long id;
-  private String description;
-  private Double price;
-  private Set<Pizza> pizzas = new HashSet<>();
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Long getId()
-  {
-    return id;
-  }
-  public void setId(Long id)
-  {
-    this.id = id;
-  }
-  public String getDescription()
-  {
-    return description;
-  }
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
-  public Double getPrice()
-  {
-    return price;
-  }
-  public void setPrice(Double price)
-  {
-    this.price = price;
-  }
-  
-  @ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-  @JoinTable(name="pizza_topping", 
-             joinColumns=@JoinColumn(name="topping_id"), 
-             inverseJoinColumns=@JoinColumn(name="pizza_id"))
-  public Set<Pizza> getPizzas()
-  {
-    return pizzas;
-  }
-  public void setPizzas(Set<Pizza> pizzas)
-  {
-    this.pizzas = pizzas;
-  }
+public class Topping {
+	private Long id;
+	private String description;
+	private Double price;
+	private Set<Pizza> pizzas = new HashSet<>();
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "pizza_topping", joinColumns = @JoinColumn(name = "topping_id"), inverseJoinColumns = @JoinColumn(name = "pizza_id"))
+	public Set<Pizza> getPizzas() {
+		return pizzas;
+	}
+
+	public void setPizzas(Set<Pizza> pizzas) {
+		this.pizzas = pizzas;
+	}
 }

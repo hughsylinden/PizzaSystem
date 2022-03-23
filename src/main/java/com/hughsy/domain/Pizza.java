@@ -67,10 +67,10 @@ public class Pizza implements Comparable<Pizza> {
 
 	@Override
 	public int compareTo(Pizza otherPizza) {
-		if(this.getId() == null) {
+		if (this.getId() == null) {
 			return 1;
 		}
-		if(otherPizza.getId() == null) {
+		if (otherPizza.getId() == null) {
 			return -1;
 		}
 		return this.getId().compareTo(otherPizza.getId());

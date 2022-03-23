@@ -14,28 +14,28 @@ import com.hughsy.repository.CustomerRepository;
 
 @Controller
 public class CustomerController {
-	
+
 	@Autowired
 	private CustomerRepository customerRepo;
-	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String rootRedirect () {		
-		return "redirect:/customers";
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String rootRedirect() {
+		return "redirect:/orders";
 	}
-	
-	@RequestMapping(value="/customers", method=RequestMethod.GET)
-	public String customers (ModelMap model) {
-		
+
+	@RequestMapping(value = "/customers", method = RequestMethod.GET)
+	public String customers(ModelMap model) {
+
 		Customer customer = new Customer();
 		model.put("customer", customer);
 		return "customers";
 	}
-	
-	@RequestMapping(value="/customers", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/customers", method = RequestMethod.POST)
 	public String customersPost(HttpServletRequest request, @ModelAttribute Customer customer, ModelMap model) {
 
 		Customer savedCustomer = customerRepo.save(customer);
 		request.getSession().setAttribute("customer", savedCustomer);
-		return "redirect:/customers";
+		return "redirect:/orders";
 	}
 }

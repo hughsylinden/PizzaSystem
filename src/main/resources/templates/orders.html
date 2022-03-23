@@ -5,17 +5,41 @@
 	</head>
 	<body>
 		<h1>Create Your Order</h1>
-		
-		<div th:each="pizza : ${order.pizzas}">
-			<fieldset>
-				<legend th:text="${'Pizza #' + {pizza.id}}"></legend>
-				Size: <span th:text="${pizza.size}"></span><br/>
-				Crust: <span th:text="${pizza.crustType}"></span><br/>
-				Toppings: <span th:each="topping, status : ${pizza.toppings}" th:text="${status.last ? topping.description : topping.description+', '}"></span>
-			</fieldset>
+		<div th:if="${orders != null}">
+			<div th:each="order : ${orders}">
+				<h2 th:text="${'Order Id: ' + {order.id}}">Order id: 1</h2>
+				<div th:each="pizza : ${order.pizzas}">
+					<fieldset>
+						<legend th:text="${'Pizza #' + {pizza.id}}"></legend>
+						Size: <span th:text="${pizza.size}"></span><br/>
+						Crust: <span th:text="${pizza.crustType}"></span><br/>
+						Toppings: <span th:each="topping, status : ${pizza.toppings}" th:text="${status.last ? topping.description : topping.description+', '}"></span>
+					</fieldset>
+				</div>
+				<hr/>
+			</div>
 		</div>
-		<form action="" method="post">
-			<button>Add Pizza to Order</button>
-		</form> 
+		
+		<div th:if="${order != null}">
+			<div th:each="order : ${order.pizzas}">
+				<fieldset>
+					<legend th:text="${'Pizza #' + {pizza.id}}"></legend>
+					Size: <span th:text="${pizza.size}"></span><br/>
+					Crust: <span th:text="${pizza.crustType}"></span><br/>
+					Toppings: <span th:each="topping, status : ${pizza.toppings}" th:text="${status.last ? topping.description : topping.description+', '}"></span>
+				</fieldset>
+			</div>
+		</div>
+		
+		<div th:if="${order != null}">
+			<form action="" method="post">
+				<button>Create new Order</button>
+			</form> 
+		</div>
+		<div th:if="${orders != null}">
+			<form action="/logout" method="post">
+				<button>logout</button>
+			</form>
+		</div> 
 	<body>
 </html>

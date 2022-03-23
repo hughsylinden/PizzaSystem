@@ -1,5 +1,7 @@
 package com.hughsy.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +26,25 @@ public class OrderController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String orderGet(ModelMap model) {
 
-		Order order = new Order();
-		model.put("order", order);
+		List<Order> orders = orderRepo.findAll();
+
+		model.put("orders", orders);	
 
 		return "orders";
 	}
 
-	@RequestMapping(value = "{orderId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
 	public String orderGet(@PathVariable Long orderId, ModelMap model) {
 
 		Order order = orderRepo.findById(orderId).get();
 		model.put("order", order);
 		return "orders";
 	}
-	
-	@RequestMapping(value = "{orderId}", method = RequestMethod.POST)
-	public String orderPost(@PathVariable Long orderId, HttpServletRequest request, @ModelAttribute Order order, ModelMap model) {
 
-		
+	@RequestMapping(value = "/{orderId}", method = RequestMethod.POST)
+	public String orderPost(@PathVariable Long orderId, HttpServletRequest request, @ModelAttribute Order order,
+			ModelMap model) {
+
 		return "redirect:/orders/" + orderId + "/pizzas";
 	}
 
