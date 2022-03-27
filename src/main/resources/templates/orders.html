@@ -5,23 +5,22 @@
 	</head>
 	<body>
 		<h1>Create Your Order</h1>
-		<div th:if="${orders != null}">
-			<div th:each="order : ${orders}">
-				<h2 th:text="${'Order Id: ' + {order.id}}">Order id: 1</h2>
-				<div th:each="pizza : ${order.pizzas}">
-					<fieldset>
-						<legend th:text="${'Pizza #' + {pizza.id}}"></legend>
-						Size: <span th:text="${pizza.size}"></span><br/>
-						Crust: <span th:text="${pizza.crustType}"></span><br/>
-						Toppings: <span th:each="topping, status : ${pizza.toppings}" th:text="${status.last ? topping.description : topping.description+', '}"></span>
-					</fieldset>
-				</div>
-				<hr/>
+		<div th:each="order : ${orders}">
+			<a style="font-size: 1.17em; font-weight: bold; display:block; margin: 1em 0em;" th:if="${order.completed == null || order.completed == false}" th:href="${'/orders/' + {order.id}}" th:text="${'Order id: '+{order.id}}"></a>
+			<h3 th:if="${order.completed == true}" th:text="${'Order Id: ' + {order.id}}"></h3>
+			<div th:each="pizza : ${order.pizzas}">
+				<fieldset>
+					<legend th:text="${'Pizza #' + {pizza.id}}"></legend>
+					Size: <span th:text="${pizza.size}"></span><br/>
+					Crust: <span th:text="${pizza.crustType}"></span><br/>
+					Toppings: <span th:each="topping, status : ${pizza.toppings}" th:text="${status.last ? topping.description : topping.description+', '}"></span>
+				</fieldset>
 			</div>
+			<hr/>
 		</div>
 		
 		<div th:if="${order != null}">
-			<div th:each="order : ${order.pizzas}">
+			<div th:each="pizza : ${order.pizzas}">
 				<fieldset>
 					<legend th:text="${'Pizza #' + {pizza.id}}"></legend>
 					Size: <span th:text="${pizza.size}"></span><br/>
@@ -32,14 +31,20 @@
 		</div>
 		
 		<div th:if="${order != null}">
+			<form th:action="${'/orders/' + {order.id}}" method="post">
+				<button>Add pizza to Order</button>
+			</form> 
+			<form th:action="${'/orders/' + {order.id} + '/completeOrder'}" method="post">
+				<button>Submit Order</button>
+			</form> 
+		</div>
+		<div th:if="${orders != null}">
 			<form action="" method="post">
 				<button>Create new Order</button>
 			</form> 
 		</div>
-		<div th:if="${orders != null}">
-			<form action="/logout" method="post">
-				<button>logout</button>
-			</form>
-		</div> 
+		<form action="/logout" method="post">
+			<button>logout</button>
+		</form>		
 	<body>
 </html>

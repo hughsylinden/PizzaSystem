@@ -20,7 +20,7 @@ public class Order {
 	private Customer customer;
 	private Set<Pizza> pizzas = new TreeSet<>();
 	private Double finalPrice;
-	private Boolean completedOrder;
+	private Boolean completed;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +28,12 @@ public class Order {
 		return id;
 	}
 
-	public Boolean getCompletedOrder() {
-		return completedOrder;
+	public Boolean getCompleted() {
+		return completed;
 	}
 
-	public void setCompletedOrder(Boolean completedOrder) {
-		this.completedOrder = completedOrder;
+	public void setCompleted(Boolean completed) {
+		this.completed= completed;
 	}
 
 	public void setId(Long id) {

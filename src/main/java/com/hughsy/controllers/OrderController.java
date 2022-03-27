@@ -44,8 +44,16 @@ public class OrderController {
 	@RequestMapping(value = "/{orderId}", method = RequestMethod.POST)
 	public String orderPost(@PathVariable Long orderId, HttpServletRequest request, @ModelAttribute Order order,
 			ModelMap model) {
-
+		model.put("orderId", orderId);
 		return "redirect:/orders/" + orderId + "/pizzas";
+	}
+	
+	@RequestMapping(value = "/{orderId}/completeOrder", method = RequestMethod.POST)
+	public String submitOrder(@PathVariable Long orderId, ModelMap model) {
+		Order order = orderRepo.findById(orderId).get();
+		order.setCompleted(true);
+		orderRepo.save(order);
+		return "redirect:/orders/";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
